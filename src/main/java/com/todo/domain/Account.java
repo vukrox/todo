@@ -1,9 +1,10 @@
 package com.todo.domain;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Account {
+public class Account implements Serializable {
     private String login;
     private String password;
     private Map<Integer, String> tasks;
