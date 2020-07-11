@@ -4,6 +4,7 @@ import com.todo.domain.Account;
 import com.todo.repository.AccountRepository;
 
 import java.util.Map;
+import java.util.Set;
 
 public class AccountServiceImpl implements AccountService {
 
@@ -15,36 +16,53 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account create(String login, String password) {
-        return null;
+
+        Account account = new Account(login, password);
+
+        repository.add(account);
+
+        return account;
     }
 
     @Override
     public Account get(String login, String password) {
-        return null;
+
+        return repository.get(login, password);
     }
 
     @Override
     public void delete(String login, String password) {
 
+        repository.remove(login, password);
     }
 
     @Override
     public void createTask(Account account, String task) {
 
+        Set<Integer> idSet = account.getTasks().keySet();
+        int finalIdofTheSet = 0;
+        for (int i = 0; i < idSet.size(); i++) {
+            finalIdofTheSet = i;
+        }
+        account.getTasks().put(finalIdofTheSet, task);
+        repository.update(account);
     }
 
     @Override
-    public void getTask(Account account, int taskNumber) {
+    public String getTask(Account account, int taskNumber) {
 
+        return account.getTasks().get(taskNumber);
     }
 
     @Override
     public Map<Integer, String> showTasks(Account account) {
-        return null;
+
+        return account.getTasks();
     }
 
     @Override
     public void removeTask(Account account, int taskNumber) {
-
+        account.getTasks().remove(taskNumber);
+        repository.update(account);
     }
 }

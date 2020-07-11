@@ -1,22 +1,23 @@
 package com.todo;
 
 import com.todo.domain.Account;
+import com.todo.engine.AccountEngine;
 import com.todo.repository.AccountRepository;
 import com.todo.repository.AccountRepositoryFileStorage;
+import com.todo.service.AccountService;
+import com.todo.service.AccountServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
         AccountRepository repository = new AccountRepositoryFileStorage();
-//        AccountService service = new AccountServiceImpl(repository);
-//        AccountEngine engine = new AccountEngine(service);
-//        engine.displayMainMenu();
-//        engine.displayUserMenu();
-        System.out.println(repository.get("test", "test"));
 
-        System.out.println(repository.get("test", "test1"));
+        AccountService service = new AccountServiceImpl(repository);
 
-        System.out.println(repository.get("test1", "test"));
+        AccountEngine engine = new AccountEngine(service);
 
+        engine.displayMainMenu();
+
+        engine.displayUserMenu();
 
     }
 }

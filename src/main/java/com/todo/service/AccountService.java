@@ -13,7 +13,7 @@ public interface AccountService {
 
     void createTask(Account account, String task);
 
-    void getTask(Account account, int taskNumber);
+    String getTask(Account account, int taskNumber);
 
     Map<Integer, String> showTasks(Account account);
 

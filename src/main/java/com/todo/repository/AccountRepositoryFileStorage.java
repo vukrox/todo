@@ -56,12 +56,17 @@ public class AccountRepositoryFileStorage implements AccountRepository {
 
     @Override
     public void update(Account account) {
-
+        Account persistedAccount = get(account.getLogin(),account.getPassword());
+        remove(persistedAccount.getLogin(),persistedAccount.getPassword());
+        add(account);
     }
 
     @Override
     public void remove(String login, String password) {
-
+        Account persistedAccount = get(login,password);
+        if (persistedAccount != null){
+            fileStorage.remove(login);
+        }
     }
 
     private void writeToStorage(Map<String,Account> fileStorage) {
