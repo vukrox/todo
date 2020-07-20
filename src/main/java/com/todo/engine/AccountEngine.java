@@ -20,7 +20,8 @@ public class AccountEngine {
 
     public Account displayMainMenu() {
         Account account = null;
-        String prompt = "Нажмите: \n \"1\" чтобы зарегистрироваться, или \n \"2\" чтобы залогиниться.";
+        String prompt = "Нажмите: \n \"1\" чтобы зарегистрироваться " +
+                "\n \"2\" чтобы залогиниться" + "\n \"3\" чтобы удалить аккаунт";
         System.out.println(prompt);
 
         while (loopIsRunning) {
@@ -35,6 +36,8 @@ public class AccountEngine {
                 registration();
             case 2:
                 return logIn();
+            case 3:
+                eliminateAcc();
             default:
                 throw new UnsupportedOperationException(option + "not supported");
         }
@@ -67,13 +70,26 @@ public class AccountEngine {
         accountService.create(login, password);
     }
 
+    private void eliminateAcc() {
+        Account accountToBeDeleted = null;
+        System.out.println("Вы будете перенаправлены в меню удаления аккаунта");
+        System.out.println("Введите login того аккаунта, который вы хотите удалить");
+        String login = scanner.next();
+        System.out.println("Введите пароль");
+        String password = scanner.next();
+        accountToBeDeleted = accountService.get(login, password);
+        System.out.println("Аккаунт: " + accountToBeDeleted + " будет удален");
+        accountService.delete(login, password);
+        System.out.println("Удаление выполнено");
+    }
+
     public void displayUserMenu(Account account) {
         loopIsRunning = true;
         while (loopIsRunning) {
             showMenuOptions();
             getUserMenuOptions(scanner.nextInt(), account);
-        }
 
+        }
     }
 
     private void getUserMenuOptions(int userOptions, Account account) {
@@ -87,7 +103,14 @@ public class AccountEngine {
                 case 2:
                     showTaskAdded(account);
                     break;
-
+                case 3:
+                    eliminateTask(account);
+                    break;
+                case 4:
+                    eliminateAcc();
+                    break;
+                case 5:
+                    break;
             }
         }
     }
@@ -97,7 +120,8 @@ public class AccountEngine {
                 "\n+ \"1\" - чтобы добавить Задачу" + "" +
                 "\n+ \"2\" - чтобы показать Задачу" + "" +
                 "\n+ \"3\" - чтобы удалить Задачу" + "" +
-                "\n+ \"4\" - чтобы удалить Аккаунт");
+                "\n+ \"4\" - чтобы удалить Аккаунт" + "" +
+                "\n+ \"5\" - чтобы выйти в подменю выше");
     }
 
     private void createNewTask(Account account) {
@@ -108,6 +132,12 @@ public class AccountEngine {
 
     private void showTaskAdded(Account account) {
         System.out.println(accountService.showTasks(account));
+    }
+
+    private void eliminateTask(Account account) {
+        System.out.println("Введите задание, которое вы хотите удалить");
+        String task = scanner.next();
+        accountService.createTask(account, task);
     }
 
 }

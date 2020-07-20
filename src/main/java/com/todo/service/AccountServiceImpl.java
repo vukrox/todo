@@ -40,11 +40,11 @@ public class AccountServiceImpl implements AccountService {
     public void createTask(Account account, String task) {
 
         Set<Integer> idSet = account.getTasks().keySet();
-        int finalIdofTheSet = 0;
+        int finalIdOfTheSet = 0;
         for (int i = 0; i < idSet.size(); i++) {
-            finalIdofTheSet = i;
+            finalIdOfTheSet = i;
         }
-        account.getTasks().put(finalIdofTheSet, task);
+        account.getTasks().put(finalIdOfTheSet, task);
         repository.update(account);
     }
 
@@ -56,7 +56,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Map<Integer, String> showTasks(Account account) {
-
         return account.getTasks();
     }
 
