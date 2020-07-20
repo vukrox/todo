@@ -17,8 +17,6 @@ public class Main {
 
         Account account = engine.displayMainMenu();
 
-        System.out.println("start UserMenu");
-
         engine.displayUserMenu(account);
 
     }

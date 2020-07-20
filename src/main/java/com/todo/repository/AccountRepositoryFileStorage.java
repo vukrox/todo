@@ -66,6 +66,7 @@ public class AccountRepositoryFileStorage implements AccountRepository {
         Account persistedAccount = get(login,password);
         if (persistedAccount != null){
             fileStorage.remove(login);
+            writeToStorage(fileStorage);
         }
     }
 

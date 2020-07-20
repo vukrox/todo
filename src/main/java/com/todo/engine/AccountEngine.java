@@ -19,7 +19,6 @@ public class AccountEngine {
     }
 
     public Account displayMainMenu() {
-
         Account account = null;
         String prompt = "Нажмите: \n \"1\" чтобы зарегистрироваться, или \n \"2\" чтобы залогиниться.";
         System.out.println(prompt);
@@ -33,16 +32,16 @@ public class AccountEngine {
     private Account getMainMenuOptions(int option) {
         switch (option) {
             case 1:
-                registration(scanner);
+                registration();
             case 2:
-                return logIn(scanner);
+                return logIn();
             default:
                 throw new UnsupportedOperationException(option + "not supported");
         }
     }
 
-    private Account logIn(Scanner scanner) {
-
+    private Account logIn() {
+        Account account;
         System.out.println("Введите логин и пароль");
         System.out.println("Введите login");
         String login = scanner.next();
@@ -50,14 +49,16 @@ public class AccountEngine {
         String password = scanner.next();
 
         try {
-        return accountService.get(login, password);
+            account = accountService.get(login, password);
+            loopIsRunning = false;
         } catch (NullPointerException ex) {
             loopIsRunning = false;
             throw ex;
         }
+        return account;
     }
 
-    private void registration(Scanner scanner) {
+    private void registration() {
         System.out.println("Вы будете перенаправлены на регистрацию");
         System.out.println("Введите login");
         String login = scanner.next();
@@ -69,13 +70,13 @@ public class AccountEngine {
     public void displayUserMenu(Account account) {
         loopIsRunning = true;
         while (loopIsRunning) {
-            getUserMenuOptions (scanner.nextInt(), account);
+            showMenuOptions();
+            getUserMenuOptions(scanner.nextInt(), account);
         }
 
     }
 
     private void getUserMenuOptions(int userOptions, Account account) {
-        showMenuOptions();
         String prompt = "Выберите задачу";
         System.out.println(prompt);
         if (userOptions >= 1 && userOptions <= 4) {
@@ -84,6 +85,8 @@ public class AccountEngine {
                     createNewTask(account);
                     break;
                 case 2:
+                    showTaskAdded(account);
+                    break;
 
             }
         }
@@ -104,7 +107,7 @@ public class AccountEngine {
     }
 
     private void showTaskAdded(Account account) {
-        accountService.showTasks(account);
+        System.out.println(accountService.showTasks(account));
     }
 
 }
