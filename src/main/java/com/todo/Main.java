@@ -15,9 +15,11 @@ public class Main {
 
         AccountEngine engine = new AccountEngine(service);
 
-        engine.displayMainMenu();
+        Account account = engine.displayMainMenu();
 
-        engine.displayUserMenu();
+        System.out.println("start UserMenu");
+
+        engine.displayUserMenu(account);
 
     }
 }
