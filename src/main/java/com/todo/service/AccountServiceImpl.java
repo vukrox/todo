@@ -39,13 +39,17 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void createTask(Account account, String task) {
 
-        Set<Integer> idSet = account.getTasks().keySet();
-        int finalIdOfTheSet = 0;
-        for (int i = 0; i < idSet.size(); i++) {
-            finalIdOfTheSet = i;
-        }
-        account.getTasks().put(finalIdOfTheSet, task);
+        Set<Integer> ids = account.getTasks().keySet();
+        int last = getLastElement(ids);
+        account.getTasks().put(++last, task);
         repository.update(account);
+    }
+    public static <T> T getLastElement(final Iterable<T> elements) {
+        T lastElement = null;
+        for (T element: elements) {
+            lastElement = element;
+        }
+        return lastElement;
     }
 
     @Override

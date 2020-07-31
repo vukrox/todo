@@ -19,28 +19,40 @@ public class AccountEngine {
     }
 
     public Account displayMainMenu() {
+
         Account account = null;
         String prompt = "Нажмите: \n \"1\" чтобы зарегистрироваться " +
-                "\n \"2\" чтобы залогиниться" + "\n \"3\" чтобы удалить аккаунт";
-        System.out.println(prompt);
+                "\n \"2\" чтобы залогиниться" + "\n \"3\" чтобы удалить аккаунт"
+                + "\n \"4\" чтобы завершить работу";
 
         while (loopIsRunning) {
+            System.out.println(prompt);
             account = getMainMenuOptions(scanner.nextInt());
         }
         return account;
     }
 
     private Account getMainMenuOptions(int option) {
+
+        Account account = null;
+
         switch (option) {
             case 1:
                 registration();
+                break;
             case 2:
-                return logIn();
+               account = logIn();
+                break;
             case 3:
                 eliminateAcc();
+                break;
+            case 4:
+                loopIsRunning = false;
+                break;
             default:
                 throw new UnsupportedOperationException(option + "not supported");
         }
+        return account;
     }
 
     private Account logIn() {
@@ -107,9 +119,8 @@ public class AccountEngine {
                     eliminateTask(account);
                     break;
                 case 4:
-                    eliminateAcc();
-                    break;
-                case 5:
+                    displayMainMenu();
+                    account = getMainMenuOptions(scanner.nextInt());
                     break;
             }
         }
@@ -120,8 +131,7 @@ public class AccountEngine {
                 "\n+ \"1\" - чтобы добавить Задачу" + "" +
                 "\n+ \"2\" - чтобы показать Задачу" + "" +
                 "\n+ \"3\" - чтобы удалить Задачу" + "" +
-                "\n+ \"4\" - чтобы удалить Аккаунт" + "" +
-                "\n+ \"5\" - чтобы выйти в подменю выше");
+                "\n+ \"4\" - чтобы выйти в подменю выше");
     }
 
     private void createNewTask(Account account) {
