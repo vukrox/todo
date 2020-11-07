@@ -7,8 +7,8 @@ import java.util.Map;
 public interface AccountService {
     Account create(String login, String password);
 
-    Account get(String login, String password);
+    Account get(String login);
 
-    void delete(String login, String password);
+    void delete(String login);
 
 }
