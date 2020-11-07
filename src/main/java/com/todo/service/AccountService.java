@@ -11,11 +11,4 @@ public interface AccountService {
 
     void delete(String login, String password);
 
-    void createTask(Account account, String task);
-
-    String getTask(Account account, int taskNumber);
-
-    Map<Integer, String> showTasks(Account account);
-
-    void removeTask(Account account, int taskNumber);
 }
