@@ -10,10 +10,10 @@ import java.util.UUID;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    private final AccountRepository repository;
+    private final AccountRepository accountRepository;
 
-    public AccountServiceImpl(AccountRepository repository) {
-        this.repository = repository;
+    public AccountServiceImpl(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
     }
 
     @Override
@@ -24,16 +24,16 @@ public class AccountServiceImpl implements AccountService {
         newAccount.setLogin(login);
         newAccount.setPassword(password);
 
-        return repository.save(newAccount);
+        return accountRepository.save(newAccount);
     }
 
     @Override
     public Account get(String login) {
-        return repository.findByLogin(login);
+        return accountRepository.findByLogin(login);
     }
 
     @Override
     public void delete(String login) {
-        repository.delete(get(login));
+        accountRepository.delete(get(login));
     }
 }
