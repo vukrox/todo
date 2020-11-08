@@ -1,4 +1,4 @@
-package com.todo;
+package com.todo.controller;
 
 import com.todo.service.AccountService;
 import org.springframework.web.bind.annotation.RestController;

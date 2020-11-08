@@ -12,7 +12,7 @@ public interface TasksService {
 
     String getTask(Account account, int taskNumber);
 
-    Task getFirstTask(String login);
+    Task getFirstTask(Account account);
 
     Task getLastTask(Account account);
 

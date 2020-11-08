@@ -15,5 +15,9 @@ task_name VARCHAR (128);
 task_description VARCHAR (512);
 start_task DATE,
 end_task DATE,
+creation_task_date DATE,
 isCompleted BOOLEAN DEFAULT FALSE
 );
+
+SELECT task FROM task
+WHERE creation_task_date
